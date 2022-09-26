@@ -16,7 +16,10 @@ const findById = async (movieId: string): Promise<MovieDocument> => {
 }
 
 const findAll = async (): Promise<MovieDocument[]> => {
-  return Movie.find().sort({ name: 1, publishedYear: -1 })
+  return Movie.find({}, { title: 1, year: 1, poster: 1 })
+    .limit(5000)
+    .sort({ title: 1 })
+    .lean()
 }
 
 const update = async (

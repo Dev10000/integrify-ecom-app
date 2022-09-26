@@ -39,3 +39,6 @@ dist/**/*
 
 *.swo
 *.swp
+
+# Misc
+commit-message.txt

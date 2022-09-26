@@ -1,26 +1,26 @@
 import mongoose, { Document } from 'mongoose'
 
 export type MovieDocument = Document & {
-  name: string
-  publishedYear: number
+  title: string
+  year: number
   genres: string[]
-  duration: number
+  runtime: number
   rating: number
   characters: string[]
 }
 
 const movieSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     index: true,
   },
-  publishedYear: {
+  year: {
     type: Number,
     required: true,
-    min: 1900,
+    min: 0,
   },
   genres: [String],
-  duration: {
+  runtime: {
     type: Number,
     required: true,
     min: 1,
