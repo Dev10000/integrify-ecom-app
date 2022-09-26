@@ -1,3 +1,4 @@
+.eslintrc.js
 # /node_modules/* in the project root is ignored by default
 # build artefacts
 dist/*
@@ -8,3 +9,6 @@ coverage/*
 /src/public/
 # custom definition files
 /src/types/
+# Misc
+
+jest.config.js

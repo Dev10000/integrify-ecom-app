@@ -1,9 +1,8 @@
 import Movie, { MovieDocument } from '../models/Movie'
 import { NotFoundError } from '../helpers/apiError'
 
-const create = async (movie: MovieDocument): Promise<MovieDocument> => {
-  return movie.save()
-}
+const create = async (movie: MovieDocument): Promise<MovieDocument> =>
+  movie.save()
 
 const findById = async (movieId: string): Promise<MovieDocument> => {
   const foundMovie = await Movie.findById(movieId)
@@ -15,12 +14,11 @@ const findById = async (movieId: string): Promise<MovieDocument> => {
   return foundMovie
 }
 
-const findAll = async (): Promise<MovieDocument[]> => {
-  return Movie.find({}, { title: 1, year: 1, poster: 1 })
+const findAll = async (): Promise<MovieDocument[]> =>
+  Movie.find({}, { title: 1, year: 1, poster: 1 })
     .limit(5000)
     .sort({ title: 1 })
     .lean()
-}
 
 const update = async (
   movieId: string,
