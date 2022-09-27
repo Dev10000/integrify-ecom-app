@@ -22,9 +22,9 @@ const findAll = async (): Promise<MovieDocument[]> =>
 
 const update = async (
   movieId: string,
-  update: Partial<MovieDocument>
+  updateObject: Partial<MovieDocument>
 ): Promise<MovieDocument | null> => {
-  const foundMovie = await Movie.findByIdAndUpdate(movieId, update, {
+  const foundMovie = await Movie.findByIdAndUpdate(movieId, updateObject, {
     new: true,
   })
 

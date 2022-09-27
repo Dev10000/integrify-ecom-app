@@ -13,8 +13,8 @@ module.exports = {
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: 'tsconfig.json',
+    tsconfigRootDir: __dirname, // needed for extends: 'airbnb-typescript/base',
+    project: 'tsconfig.json', // needed for extends: 'airbnb-typescript/base',
     ecmaVersion: 'latest',
     sourceType: 'module',
   },

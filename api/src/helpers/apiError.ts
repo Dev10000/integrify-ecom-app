@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 export default class ApiError extends Error {
   constructor(
     readonly statusCode: number,
