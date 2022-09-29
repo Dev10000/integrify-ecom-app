@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose'
+import Order, { OrderDocument } from './Order'
 
 export type UserDocument = Document & {
   firstName: string
@@ -6,7 +7,7 @@ export type UserDocument = Document & {
   email: string
   imageUrl: string
   role: 'CUSTOMER' | 'SELLER' | 'ADMIN'
-  orders: string[] // TODO order type
+  orders: OrderDocument[]
 }
 
 const userSchema = new mongoose.Schema({
@@ -33,7 +34,7 @@ const userSchema = new mongoose.Schema({
     default: 'CUSTOMER',
     required: true,
   },
-  orders: [String],
+  orders: [Order.schema],
 })
 
 export default mongoose.model<UserDocument>('User', userSchema)
