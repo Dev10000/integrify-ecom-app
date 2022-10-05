@@ -12,7 +12,7 @@ function Header() {
   return (
     <header>
       {/* Header */}
-      <div className="flex items-center bg-ecom_blue p-1 flex-grow py-2">
+      <div className="flex items-center bg-ecom_blue p-1 flex-grow py-2 h-20">
         {/* Left Side Menu and Logo */}
         <div className="flex items-center flex-grow-0 sm:flex-grow-0 text-white">
           <Bars3Icon className="h-8 cursor-pointer" />

@@ -15,8 +15,8 @@ const findById = async (productId: string): Promise<ProductDocument> => {
 }
 
 const findAll = async (): Promise<ProductDocument[]> =>
-  Product.find({}, { name: 1, brand: 1, price: 1, image_url: 1 })
-    .limit(5000)
+  Product.find({ image_url: { $ne: null } })
+    .limit(10)
     .sort({ name: 1 })
     .lean()
 
