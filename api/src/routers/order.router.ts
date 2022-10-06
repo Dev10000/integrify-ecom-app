@@ -1,4 +1,5 @@
 import express from 'express'
+import checkAuth from '../middlewares/checkAuth'
 
 import {
   createOrder,
@@ -12,7 +13,7 @@ import {
 const router = express.Router()
 
 // Every path we define here will get /api/v1/orders prefix
-router.get('/', findAll)
+router.get('/', checkAuth, findAll)
 router.get('/:orderId', findById)
 // router.get('/:userEmail', findByUserEmail)
 // router.put('/:userId', updateUser)

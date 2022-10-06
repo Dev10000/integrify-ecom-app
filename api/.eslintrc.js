@@ -33,5 +33,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'import/extensions': 'off',
     'max-classes-per-file': 'warn',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }], // For MongoDB _id
   },
 }
