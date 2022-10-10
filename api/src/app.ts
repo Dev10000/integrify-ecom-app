@@ -5,15 +5,16 @@ import cors from 'cors'
 // import cookieParser from 'cookie-parser'
 import passport from 'passport'
 
-import jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken'
 import apiErrorHandler from './middlewares/apiErrorHandler'
 import apiContentType from './middlewares/apiContentType'
 import movieRouter from './routers/movie.router'
 import productRouter from './routers/product.router'
 import userRouter from './routers/user.router'
 import orderRouter from './routers/order.router'
+import authRouter from './routers/auth.router'
 import loginWithGoogle from './passport/google'
-import { JWT_SECRET } from './util/secrets'
+// import { JWT_SECRET } from './util/secrets'
 
 dotenv.config({ path: '.env' })
 const app = express()
@@ -54,24 +55,26 @@ app.use('/api/v1/movies', movieRouter)
 app.use('/api/v1/products', productRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/orders', orderRouter)
-app.post(
-  '/api/v1/login',
-  passport.authenticate('google-id-token', { session: false }),
-  (req, res) => {
-    const customer: any = req.user
-
-    const token = jwt.sign(
-      { customerId: customer._id, isAdmin: customer.isAdmin },
-      JWT_SECRET,
-      {
-        expiresIn: '1h',
-      }
-    )
-    res.json({ token })
-  }
-)
+app.use('/api/v1/auth', authRouter)
 
 // Custom API error handler
 app.use(apiErrorHandler)
 
 export default app
+
+// app.post(
+//   '/api/v1/login',
+//   passport.authenticate('google-id-token', { session: false }),
+//   (req, res) => {
+//     const customer: any = req.user
+
+//     const token = jwt.sign(
+//       { customerId: customer._id, isAdmin: customer.isAdmin },
+//       JWT_SECRET,
+//       {
+//         expiresIn: '1h',
+//       }
+//     )
+//     res.json({ token })
+//   }
+// )

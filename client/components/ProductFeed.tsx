@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import Image from 'next/image';
 import Product from './Product';
@@ -6,19 +7,9 @@ import type { ProductProps } from '../pages';
 
 const ProductFeed = ({ products }: ProductProps) => (
   <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-40">
-    {products
-      .slice(0, 4)
-      .map(({ _id, name, price, description, category, image_url }) => (
-        <Product
-          key={_id}
-          _id={_id}
-          name={name}
-          price={price}
-          description={description}
-          category={category}
-          image_url={image_url}
-        />
-      ))}
+    {products.slice(0, 4).map((product) => (
+      <Product key={product._id} product={product} />
+    ))}
     <div className="grid md:col-span-full">
       <Image
         src={adImg1.src}
@@ -30,34 +21,14 @@ const ProductFeed = ({ products }: ProductProps) => (
     </div>
 
     <div className="md:col-span-2">
-      {products
-        .slice(4, 5)
-        .map(({ _id, name, price, description, category, image_url }) => (
-          <Product
-            key={_id}
-            _id={_id}
-            name={name}
-            price={price}
-            description={description}
-            category={category}
-            image_url={image_url}
-          />
-        ))}
+      {products.slice(4, 5).map((product) => (
+        <Product key={product._id} product={product} />
+      ))}
     </div>
 
-    {products
-      .slice(5, products.length)
-      .map(({ _id, name, price, description, category, image_url }) => (
-        <Product
-          key={_id}
-          _id={_id}
-          name={name}
-          price={price}
-          description={description}
-          category={category}
-          image_url={image_url}
-        />
-      ))}
+    {products.slice(5, products.length).map((product) => (
+      <Product key={product._id} product={product} />
+    ))}
   </div>
 );
 
