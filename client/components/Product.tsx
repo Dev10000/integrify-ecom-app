@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import { useDispatch } from 'react-redux';
 import { numberCurrencyFormat, randomStarRating } from '../utils/utils';
 import { addToCart } from '../slices/cartSlice';
-import noImage from '../assets/no-image.png';
+// import noImage from '../assets/no-image.png';
 
 type ProductProps = {
   product: {
