@@ -4,6 +4,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import { useDispatch } from 'react-redux';
 import { numberCurrencyFormat, randomStarRating } from '../utils/utils';
 import { addToCart } from '../slices/cartSlice';
+import noImage from '../assets/no-image.png';
 
 type ProductProps = {
   product: {
@@ -34,7 +35,7 @@ function Product({ product }: ProductProps) {
     };
     dispatch(addToCart(cartProduct));
   };
-
+  console.log('image: ', product.image_url);
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
@@ -43,9 +44,18 @@ function Product({ product }: ProductProps) {
 
       <Image
         alt=""
+        // src={
+        //   // Quick fix ternary to fix missing png suffix. Next.js Image component gives CORS errros if suffix missing.
+        //   product.image_url === 'https://via.placeholder.com/250x250'
+        //     ? 'https://via.placeholder.com/250x250.png'
+        //     : product.image_url
+        // }
         src={
           // Quick fix ternary to fix missing png suffix. Next.js Image component gives CORS errros if suffix missing.
-          product.image_url === 'https://via.placeholder.com/250x250'
+          product.image_url === null ||
+          product.image_url === 'https://via.placeholder.com/250x250' ||
+          product.image_url ===
+            'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
             ? 'https://via.placeholder.com/250x250.png'
             : product.image_url
         }

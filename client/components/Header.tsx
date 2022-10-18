@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useState } from 'react';
 // import Image from 'next/image';
 import {
   MagnifyingGlassIcon,
@@ -12,12 +12,45 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 // import { GoogleLogin } from '@react-oauth/google'; FOR GOOGLE ID_TOKEN STRATEGY
 // import axios from 'axios'; FOR GOOGLE ID_TOKEN STRATEGY
+import axios from 'axios';
 import { selectCartItems } from '../slices/cartSlice';
+import Sidebar from './Sidebar';
 
 function Header() {
   const { data: session } = useSession();
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const router = useRouter();
   const cartItems = useSelector(selectCartItems);
+  const [sideBarIsOpen, setSideBarIsOpen] = useState(false);
+
+  const handleSearchButton = async () => {
+    console.log('Search Input:', searchInput);
+    router.push(`/?search=${searchInput}`);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchButton();
+    }
+  };
+
+  const handleSearchTermChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleKeyUp = async () => {
+    try {
+      const response = await axios.get(
+        `/api/v1/products/autocomplete/${searchInput}`,
+      );
+      const products: any = response.data;
+      setSearchSuggestions(products);
+    } catch (error: any) {
+      console.log(error.message);
+      setSearchSuggestions([]);
+    }
+  };
 
   /** FOR GOOGLE ID_TOKEN STRATEGY */
   // const [token, setToken] = useState('');
@@ -40,12 +73,19 @@ function Header() {
   /** FOR GOOGLE ID_TOKEN STRATEGY */
 
   return (
-    <header>
+    <header className="sticky top-0 z-40">
+      <Sidebar
+        sideBarIsOpen={sideBarIsOpen}
+        setSideBarIsOpen={setSideBarIsOpen}
+      />
       {/* Header */}
       <div className="flex items-center bg-ecom_blue p-1 flex-grow py-2 h-20">
         {/* Left Side Menu and Logo */}
         <div className="flex items-center flex-grow-0 sm:flex-grow-0 text-white">
-          <Bars3Icon className="h-8 cursor-pointer" />
+          <Bars3Icon
+            onClick={() => setSideBarIsOpen(true)}
+            className="h-8 cursor-pointer"
+          />
 
           <span
             onClick={() => router.push('/')}
@@ -67,11 +107,26 @@ function Header() {
         {/* Middle Search */}
         <div className="flex mx-2 md:mx-0 items-center h-10 rounded-md flex-grow cursor-pointer bg-sky-400 hover:bg-sky-500">
           <input
-            type="text"
+            type="search"
+            list="datalistOptions"
+            onKeyPress={handleKeyPress}
+            onKeyUp={handleKeyUp}
+            onChange={handleSearchTermChange}
+            onSubmit={handleSearchButton}
             placeholder="Search..."
             className="p-2 h-full w-6 flex-grow flex-shrink rounded-l-md focus:outline-none px-4"
           />
-          <MagnifyingGlassIcon className="sm:h-12 sm:p-4 h-8 p-2" />
+          <datalist id="datalistOptions">
+            {searchSuggestions.map((s: any, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <option key={index} value={s.name} aria-label={s.name} />
+            ))}
+          </datalist>
+          <MagnifyingGlassIcon
+            type="button"
+            onClick={handleSearchButton}
+            className="sm:h-12 sm:p-4 h-8 p-2"
+          />
         </div>
 
         {/* Right Side */}

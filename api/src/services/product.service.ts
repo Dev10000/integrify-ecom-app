@@ -14,10 +14,11 @@ const findById = async (productId: string): Promise<ProductDocument> => {
   return foundProduct
 }
 
-const findAll = async (): Promise<ProductDocument[]> =>
+const findAll = async (page = 0, perPage = 27): Promise<ProductDocument[]> =>
   Product.find({ image_url: { $ne: null } })
-    .limit(50)
     .sort({ name: 1 })
+    .limit(perPage)
+    .skip(perPage * page)
     .lean()
 
 const update = async (

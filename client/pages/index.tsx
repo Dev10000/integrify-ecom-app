@@ -41,9 +41,25 @@ const Home: NextPage<ProductProps> = ({ products }) => (
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: any) => {
+  console.log('context', context);
+  console.log('context###################:', context.query.category);
   try {
-    const response = await axios.get('/api/v1/products/');
+    let response;
+    if (context.query.category) {
+      response = await axios.get(
+        `/api/v1/products/categories/${encodeURIComponent(
+          context.query.category,
+        )}`,
+      );
+    } else if (context.query.search) {
+      response = await axios.get(
+        `/api/v1/products/search/${encodeURIComponent(context.query.search)}`,
+      );
+    } else {
+      response = await axios.get('/api/v1/products/');
+    }
+    // const response = context.query.search;
     const products: Products[] = response.data;
     return {
       props: {

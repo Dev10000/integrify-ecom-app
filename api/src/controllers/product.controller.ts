@@ -104,8 +104,10 @@ export const findAll = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { page, limit }: any = req.query
+  console.log(req.query)
   try {
-    res.json(await productService.findAll())
+    res.json(await productService.findAll(page, limit))
   } catch (error) {
     if (error instanceof Error && error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

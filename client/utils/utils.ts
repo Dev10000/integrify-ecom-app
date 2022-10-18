@@ -67,4 +67,14 @@ const numberCurrencyFormat = (
 const randomStarRating = (minRating: number, maxRating: number): number =>
   Math.floor(Math.random() * (maxRating - minRating + 1)) + minRating;
 
+/** TODO
+ * Fix missing or incorrect not sanitized image data from DB
+ *
+ * @param {Number}
+ * @param {Number}
+ * @return {Number}
+ */
+// const fixImage = (data): string =>
+// TODO
+
 export { numberCurrencyFormat, randomStarRating };
