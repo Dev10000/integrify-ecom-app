@@ -29,13 +29,13 @@ function Header() {
     router.push(`/?search=${searchInput}`);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
       handleSearchButton();
     }
   };
 
-  const handleSearchTermChange = (e) => {
+  const handleSearchTermChange = (e: any) => {
     setSearchInput(e.target.value);
   };
 
