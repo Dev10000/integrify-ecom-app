@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 // import React, { useState } from 'react';
 
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { axiosMongoApi } from '../utils/axios';
 
 type SidebarProps = {
   sideBarIsOpen: boolean;
@@ -27,7 +28,9 @@ function Sidebar({ sideBarIsOpen, setSideBarIsOpen }: SidebarProps) {
     console.log('useeffect');
     const getCategories = async () => {
       try {
-        const response = await axios.get('/api/v1/products/categories/all');
+        const response = await axiosMongoApi.get(
+          '/api/v1/products/categories/all',
+        );
         console.log('data: ', response.data);
         // const products: Products[] = response.data;
         setCategories(response.data);

@@ -11,10 +11,11 @@ export const createOrder = async (
   next: NextFunction
 ) => {
   try {
-    const { userEmail, amount, amountShipping, images } = req.body
+    const { userEmail, amount, amountShipping, images, stripeId } = req.body
 
     const order = new Order({
       userEmail,
+      stripeId,
       amount,
       amountShipping,
       images,
@@ -77,6 +78,23 @@ export const findById = async (
 ) => {
   try {
     res.json(await orderService.findById(req.params.orderId))
+  } catch (error) {
+    if (error instanceof Error && error.name === 'ValidationError') {
+      next(new BadRequestError('Invalid Request', 400, error))
+    } else {
+      next(error)
+    }
+  }
+}
+
+// GET /order/:userEmail
+export const findByUserEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await orderService.findByUserEmail(req.params.userEmail))
   } catch (error) {
     if (error instanceof Error && error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

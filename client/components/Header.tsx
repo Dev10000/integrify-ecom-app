@@ -139,7 +139,10 @@ function Header() {
             <p className="font-extrabold md:text-sm">Account</p>
           </div>
 
-          <div className="link hidden md:inline">
+          <div
+            onClick={() => session && router.push('/orders')}
+            className="link hidden md:inline"
+          >
             <p>Returns</p>
             <p className="font-extrabold md:text-sm">& Orders</p>
           </div>

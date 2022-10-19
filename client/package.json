@@ -9,13 +9,18 @@
     "@heroicons/react": "^2.0.11",
     "@react-oauth/google": "^0.2.8",
     "@reduxjs/toolkit": "^1.8.5",
+    "@stripe/stripe-js": "^1.42.0",
+    "@types/micro": "^7.3.7",
     "axios": "^1.0.0",
+    "micro": "^9.4.1",
+    "moment": "^2.29.4",
     "next": "latest",
     "next-auth": "^4.12.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-redux": "^8.0.4",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "stripe": "^10.14.0"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",

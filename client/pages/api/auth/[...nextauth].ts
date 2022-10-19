@@ -2,13 +2,14 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import axios from 'axios';
+// import axios from 'axios';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { axiosMongoApi } from '../../../utils/axios';
 
 const getTokenFromYourAPIServer = async (reqBody) => {
   try {
-    const response = await axios.post('/api/v1/auth/login', reqBody);
+    const response = await axiosMongoApi.post('/api/v1/auth/login', reqBody);
     const user = response.data;
     return user;
   } catch (error) {

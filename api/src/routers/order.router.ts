@@ -7,7 +7,7 @@ import {
   // deleteUser,
   findAll,
   // updateUser,
-  // findByUserEmail,
+  findByUserEmail,
 } from '../controllers/order.controller'
 
 const router = express.Router()
@@ -15,7 +15,7 @@ const router = express.Router()
 // Every path we define here will get /api/v1/orders prefix
 router.get('/', checkAuth, findAll)
 router.get('/:orderId', findById)
-// router.get('/:userEmail', findByUserEmail)
+router.get('/email/:userEmail', findByUserEmail)
 // router.put('/:userId', updateUser)
 // router.delete('/:userId', deleteUser)
 router.post('/', createOrder)

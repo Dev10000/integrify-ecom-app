@@ -14,6 +14,16 @@ const findById = async (orderId: string): Promise<OrderDocument> => {
   return foundOrder
 }
 
+const findByUserEmail = async (userEmail: string): Promise<OrderDocument[]> => {
+  const foundOrder = await Order.find({ userEmail: userEmail })
+
+  if (!foundOrder) {
+    throw new NotFoundError(`orders for ${userEmail} not found`)
+  }
+
+  return foundOrder
+}
+
 const findAll = async (): Promise<OrderDocument[]> =>
   Order.find({}).limit(5000).sort({ title: 1 }).lean()
 
@@ -46,6 +56,7 @@ export default {
   create,
   findById,
   findAll,
+  findByUserEmail,
   // update,
   // deleteorder,
 }

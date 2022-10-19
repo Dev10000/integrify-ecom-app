@@ -6,7 +6,7 @@ import adImg1 from '../assets/mern-banner.jpg';
 import type { ProductProps } from '../pages';
 
 const ProductFeed = ({ products }: ProductProps) => (
-  <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-40">
+  <div className="grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:-mt-52">
     {products.slice(0, 4).map((product) => (
       <Product key={product._id} product={product} />
     ))}

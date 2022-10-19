@@ -1,6 +1,7 @@
 import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 import Banner from '../components/Banner';
 // import Image from 'next/image';
 import Header from '../components/Header';
@@ -8,7 +9,7 @@ import ProductFeed from '../components/ProductFeed';
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === 'production'
-    ? process.env.NEXT_PUBLIC_API_BASE_URL
+    ? process.env.NEXT_PUBLIC_MONGO_API_BASE_URL
     : 'http://localhost:4000';
 
 type Products = {
@@ -42,8 +43,9 @@ const Home: NextPage<ProductProps> = ({ products }) => (
 export default Home;
 
 export const getServerSideProps = async (context: any) => {
-  console.log('context', context);
-  console.log('context###################:', context.query.category);
+  // Next.js trick, fix the header login Hello, user name refresh loading glitch
+  const session = await getSession(context);
+
   try {
     let response;
     if (context.query.category) {
@@ -71,6 +73,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         products: [],
+        session,
       },
     };
   }
