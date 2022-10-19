@@ -4,7 +4,7 @@ import { buffer } from 'micro';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { axiosMongoApi } from '../../utils/axios';
 
-// Establish connection to Stipe
+// Establish connection to Stripe
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
@@ -45,14 +45,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       console.log('WEBHOOK CONSOLE ERROR:', err.message);
       return res.status(400).send(`Webhook error: ${err.message}`);
     }
-
+    console.log('Stripe Webhook event##:', event);
     // Handle the checkout.session.completed event
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
 
       // Fulfill the order...
       return fulfillOrder(session)
-        .then(() => res.status(200))
+        .then(() => res.status(200).json({ received: true }))
         .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`));
     }
   }
