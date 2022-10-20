@@ -65,7 +65,7 @@ export async function getServerSideProps(context: any) {
   let stripeOrders: any;
   try {
     const response = await axiosMongoApi.get(
-      `/api/v1/orders/email/${'na@na.com'}`,
+      `/api/v1/orders/email/${session?.user?.email}`,
     );
     stripeOrders = response.data;
     console.log(
