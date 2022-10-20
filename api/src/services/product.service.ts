@@ -52,7 +52,11 @@ const deleteProduct = async (
   return foundProduct
 }
 
-const searchProduct = async (query: string): Promise<ProductDocument[]> => {
+const searchProduct = async (
+  query: string,
+  page = 0,
+  perPage = 27
+): Promise<ProductDocument[]> => {
   const searchResults = Product.aggregate([
     {
       $search: {
@@ -81,6 +85,8 @@ const searchProduct = async (query: string): Promise<ProductDocument[]> => {
       },
     },
   ])
+    .limit(perPage)
+    .skip(perPage * page)
   return searchResults
 }
 
@@ -124,14 +130,19 @@ const categories = async (): Promise<ProductDocument[]> => {
       },
     },
   ])
+
   const processedResults = categoriesResults[0].categories
   return processedResults
 }
 
 const getProductsByCategory = async (
-  categoryName: string
+  categoryName: string,
+  page = 0,
+  perPage = 27
 ): Promise<ProductDocument[]> => {
   const results = await Product.find({ category: categoryName })
+    .limit(perPage)
+    .skip(perPage * page)
 
   if (!results) {
     throw new NotFoundError(`Category ${categoryName} not found`)

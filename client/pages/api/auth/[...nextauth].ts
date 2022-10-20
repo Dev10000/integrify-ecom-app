@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-// import axios from 'axios';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { axiosMongoApi } from '../../../utils/axios';
@@ -49,14 +48,14 @@ callbacks.signIn = async function signIn({ user, account }) {
   return false;
 };
 
-callbacks.jwt = async function jwt({ token, user }) {
-  console.log('JWT token:', token, 'jwt user:', user);
-  if (user) {
-    token = { accessToken: user.accessToken };
-  }
+// callbacks.jwt = async function jwt({ token, user }) {
+//   console.log('callbJWT token:', token, 'callbjwt user:', user);
+//   if (user) {
+//     token = { accessToken: user.accessToken };
+//   }
 
-  return token;
-};
+//   return token;
+// };
 
 callbacks.session = async function session({ session, token }) {
   session.accessToken = token.accessToken;

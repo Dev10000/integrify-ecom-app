@@ -117,14 +117,19 @@ export const findAll = async (
   }
 }
 
-// GET /prodcuts/search:query
+// GET /prodcuts/search:query&page=0&limit=10
 export const searchProduct = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
+  const { page, limit }: any = req.query
+  const pageN = Number(page)
+  const limitN = Number(limit)
   try {
-    res.json(await productService.searchProduct(req.params.query))
+    res.json(
+      await productService.searchProduct(req.params.query, pageN, limitN)
+    )
   } catch (error) {
     if (error instanceof Error && error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))
@@ -174,8 +179,15 @@ export const getProductsByCategory = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { page, limit }: any = req.query
   try {
-    res.json(await productService.getProductsByCategory(req.params.category))
+    res.json(
+      await productService.getProductsByCategory(
+        req.params.category,
+        page,
+        limit
+      )
+    )
   } catch (error) {
     if (error instanceof Error && error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', 400, error))

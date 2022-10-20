@@ -11,10 +11,9 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 // import { GoogleLogin } from '@react-oauth/google'; FOR GOOGLE ID_TOKEN STRATEGY
-// import axios from 'axios'; FOR GOOGLE ID_TOKEN STRATEGY
-import axios from 'axios';
 import { selectCartItems } from '../slices/cartSlice';
 import Sidebar from './Sidebar';
+import { axiosMongoApi } from '../utils/axios';
 
 function Header() {
   const { data: session } = useSession();
@@ -23,6 +22,9 @@ function Header() {
   const router = useRouter();
   const cartItems = useSelector(selectCartItems);
   const [sideBarIsOpen, setSideBarIsOpen] = useState(false);
+
+  console.log('*SESSION*', session);
+  // console.log('*DATA*', data);
 
   const handleSearchButton = async () => {
     console.log('Search Input:', searchInput);
@@ -41,7 +43,7 @@ function Header() {
 
   const handleKeyUp = async () => {
     try {
-      const response = await axios.get(
+      const response = await axiosMongoApi.get(
         `/api/v1/products/autocomplete/${searchInput}`,
       );
       const products: any = response.data;

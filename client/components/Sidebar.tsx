@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 // import React, { useState } from 'react';
 
-// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { axiosMongoApi } from '../utils/axios';
@@ -20,7 +19,6 @@ function Sidebar({ sideBarIsOpen, setSideBarIsOpen }: SidebarProps) {
   console.log('base');
   const handleCategoryButton = async (category: any) => {
     console.log('Search Input:', category);
-    // to={`/category/${c._id}`}
     router.push(`/?category=${category}`);
   };
 

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
 import { loadStripe } from '@stripe/stripe-js';
-// import axios from 'axios';
 import img1 from '../assets/mern-banner.jpg';
 import Header from '../components/Header';
 import { selectCartItems, selectTotal } from '../slices/cartSlice';
